@@ -1,5 +1,17 @@
 package arrays
 
+/*
+Problem:
+Ein sortiertes Array in-place komprimieren. Jeder Wert darf höchstens zweimal vorkommen. Nur nums[:k] ist relevant.
+
+Muster:
+- Stable In-place Compaction
+- Read-Write-Pointer
+- Begrenzte Häufigkeit in sortierten Daten
+
+Invariante:
+nums[:write] enthält das korrekte Ergebnis für alle bisher von read untersuchten Elemente.
+*/
 func RemoveDuplicatesFromSortedArrayII(nums []int) int {
 	write := 0
 

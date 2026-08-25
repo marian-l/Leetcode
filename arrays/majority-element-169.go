@@ -1,5 +1,16 @@
 package arrays
 
+/*
+Problem:
+Den Wert finden, der häufiger als n/2 vorkommt.
+
+Muster:
+- Frequency Map
+- Zählen nach Schlüssel
+
+Invariante:
+counts[value] enthält die genaue Häufigkeit von value im bisher untersuchten Bereich.*/
+
 func MajorityElement(nums []int) int {
 	if len(nums) == 0 {
 		return 0
