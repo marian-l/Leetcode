@@ -6,6 +6,9 @@ Maximiere prices[sell] - prices[buy], wobei buy < sell gelten muss.
 
 Muster:
 Ein Durchlauf mit laufendem Minimum und bisher bestem Ergebnis.
+- Running Minimum / Prefix Minimum
+- State Compression
+- Online Algorithmus
 
 Kernidee:
 Für einen festen Verkaufstag ist nur der günstigste Kaufpreis
@@ -27,14 +30,13 @@ func MaxProfit(prices []int) int {
 		return 0
 	}
 
-	
 	cheapestBuyPrice := 8999999999999999999
 	maxProfit := 0
-	
+
 	for day := 0; day < len(prices); day++ {
 		if cheapestBuyPrice > prices[day] {
 			cheapestBuyPrice = prices[day]
-		} else if prices[day] - cheapestBuyPrice > maxProfit {
+		} else if prices[day]-cheapestBuyPrice > maxProfit {
 			maxProfit = prices[day] - cheapestBuyPrice
 		}
 	}
