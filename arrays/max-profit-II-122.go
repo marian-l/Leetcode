@@ -14,7 +14,13 @@ func MaxProfitII(prices []int) int {
 		return 0
 	}
 
-	cheapestBuyPrice := prices[0]
+	maxProfit := 0
+
+	for day := 0; day < len(prices)-1; day++ {
+		if prices[day] < prices[day+1] {
+			maxProfit += prices[day+1] - prices[day]
+		} 
+	}
 
 	return maxProfit
 }
