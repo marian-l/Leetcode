@@ -4,6 +4,58 @@ package arrays
 // Invariante: Nach Verarbeitung der bisherigen Indizes ist jumpReach der größte Index, der über irgendeinen bisherigen Weg erreichbar ist.
 
 func CanJump(nums []int) bool {
+	if len(nums) == 0 || (nums[0] == 0 && !(len(nums) == 1)) {
+		return false
+	}
+
+	furthestReach := nums[0]
+
+	for i := 0; i <= len(nums)-1; i++ {
+		if furthestReach >= len(nums)-1 {
+			return true
+		}
+
+		if i > furthestReach {
+			return false
+		}
+
+		if nums[i]+i > furthestReach {
+			furthestReach = nums[i] + i
+		}
+	}
+
+	return false
+}
+
+// GPT-generated solution, compressed
+func moreOptimalCanJump(nums []int) bool {
+	if len(nums) == 0 {
+		return false
+	}
+
+	furthestReach := 0
+
+	for i, jumpLength := range nums {
+
+		// wir sind bei einer Position angekommen, die wir nicht hätten erreichen können
+		if i > furthestReach {
+			return false
+		}
+
+		// wenn eine Position die Reichweite erhöht, muss diese neue maximale Reichweite gespeichert werden
+		if i+jumpLength > furthestReach {
+			furthestReach = i + jumpLength
+		}
+
+		if furthestReach > (len(nums) - 1) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func ___CanJump(nums []int) bool {
 	if len(nums) == 0 {
 		return false
 	}
