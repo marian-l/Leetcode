@@ -63,6 +63,67 @@ func HIndex(citations []int) int {
 	return len(citations)
 }
 
+func AI_HIndex(citations []int) int {
+	if len(citations) == 0 {
+		return 0
+	}
+
+	sort.Slice(citations, func(i, j int) bool {
+		return citations[i] > citations[j]
+	})
+
+	hIndex := 0
+
+	for citationIndex, citationCount := range citations {
+		paperCount := citationIndex + 1
+
+		if citationCount < paperCount {
+			break
+		}
+
+		hIndex = paperCount
+	}
+
+	return hIndex
+}
+
+// AI-assistierte, bereinigte Bucket Version
+func HIndexBucketVersion(citations []int) int {
+	// Der Index kann nie größer als die Anzahl von Papern sein
+	listLength := len(citations)
+
+	if listLength == 0 {
+		return 0
+	}
+
+	// Frequency Map / Buckets
+	// bucket[0] Paper mit 0 Zitationen
+	// bucket[1] Paper mit 1 Zitationen
+	buckets := make([]int, listLength+1)
+
+	// Die Anzahl Zitationen kann bis zu 1000 und größer als die Liste sein, weswegen die Anzahl hier normalisiert wird. Nach diesem Schritt sind die Häufigkeiten in den Buckets gezählt
+	for _, citationCount := range citations {
+		if citationCount >= listLength {
+			buckets[listLength]++
+		} else {
+			buckets[citationCount]++
+		}
+	}
+
+	papersAtLeast := 0
+
+	// Mit dem größtmöglichen H-Index beginnen und zählen, bis die Anzahl von Papern so groß ist wie der Index
+	for hIndex := listLength; hIndex >= 0; hIndex-- {
+		papersAtLeast += buckets[hIndex]
+
+		if papersAtLeast >= hIndex {
+			return hIndex
+		}
+	}
+
+	return len(citations)
+}
+
 // Reverse Ansätze
 // citationPaperAmount = slices.Reverse(citationPaperAmount)
 // for i := range citationPaperAmount

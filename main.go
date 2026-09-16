@@ -12,8 +12,8 @@ func main() {
 }
 
 func callHIndex() {
-	array1 := []int{0,0,2}
-	arrays.HIndex(array1)
+	array1 := []int{3, 0, 6, 1, 5}
+	arrays.HIndexBucketVersion(array1)
 }
 
 func callCanJump() {
